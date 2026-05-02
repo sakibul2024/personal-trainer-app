@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getCustomers, addCustomer, updateCustomer, deleteCustomer } from '../services/api';
+import Papa from 'papaparse';
 
 function CustomerList() {
   const [customers, setCustomers] = useState([]);
@@ -46,6 +47,34 @@ function CustomerList() {
       setSortBy(field);
       setSortOrder('asc');
     }
+  };
+
+  // Export to CSV function
+  const exportToCSV = () => {
+    // Filter out extra data (only keep customer data, no buttons/links)
+    const exportData = sorted.map(customer => ({
+      'First Name': customer.firstname,
+      'Last Name': customer.lastname,
+      'Email': customer.email,
+      'Phone': customer.phone,
+      'Street Address': customer.streetaddress || '',
+      'Postcode': customer.postcode || '',
+      'City': customer.city || ''
+    }));
+
+    
+    const csv = Papa.unparse(exportData);
+    
+   
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'customers_export.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
   };
 
   const openAddForm = () => {
@@ -108,9 +137,12 @@ function CustomerList() {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
         <h2>Customers</h2>
-        <button onClick={openAddForm}>Add Customer</button>
+        <div>
+          <button onClick={exportToCSV} style={{ marginRight: '10px' }}>📥 Export to CSV</button>
+          <button onClick={openAddForm}>Add Customer</button>
+        </div>
       </div>
       
       <input 
@@ -159,7 +191,7 @@ function CustomerList() {
         </tbody>
       </table>
 
-      {/* Simple Form Modal */}
+      {/* Modal Form */}
       {showForm && (
         <div style={{
           position: 'fixed',

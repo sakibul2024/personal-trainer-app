@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import CustomerList from './components/CustomerList';
 import TrainingList from './components/TrainingList';
+import TrainingCalendar from './components/TrainingCalendar';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<CustomerList />} />
           <Route path="/trainings" element={<TrainingList />} />
+          <Route path="/calendar" element={<TrainingCalendar />} />
         </Routes>
       </div>
     </BrowserRouter>
