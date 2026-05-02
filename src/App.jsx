@@ -3,6 +3,7 @@ import Navigation from './components/Navigation';
 import CustomerList from './components/CustomerList';
 import TrainingList from './components/TrainingList';
 import TrainingCalendar from './components/TrainingCalendar';
+import StatisticsPage from './components/StatisticsPage';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<CustomerList />} />
           <Route path="/trainings" element={<TrainingList />} />
           <Route path="/calendar" element={<TrainingCalendar />} />
+          <Route path="/statistics" element={<StatisticsPage />} />
         </Routes>
       </div>
     </BrowserRouter>

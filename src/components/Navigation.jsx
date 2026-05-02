@@ -5,7 +5,8 @@ function Navigation() {
     <nav>
       <Link to="/">Customers</Link> |{' '}
       <Link to="/trainings">Trainings</Link> |{' '}
-      <Link to="/calendar">Calendar</Link>
+      <Link to="/calendar">Calendar</Link> |{' '}
+      <Link to="/statistics">Statistics</Link>
     </nav>
   );
 }
